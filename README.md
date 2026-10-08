@@ -14,8 +14,15 @@ Lauffähig ist die API, die übrigen Teile sind als Konzept und Diagramme ausgea
 
 ## Quick-Start
 
-Es gibt drei Wege, die API zu starten. Such dir **einen** aus. Alle drei nutzen Port 8000 und
-können deshalb nicht gleichzeitig laufen.
+Zuerst das Repository holen. Alle folgenden Befehle laufen im Projektordner:
+
+```bash
+git clone https://github.com/<benutzername>/forecast-api.git
+cd forecast-api
+```
+
+Danach gibt es drei Wege, die API zu starten. Such dir **einen** aus. Alle drei nutzen Port 8000
+und können deshalb nicht gleichzeitig laufen.
 
 | Weg | Wann sinnvoll | Voraussetzung |
 | --- | --- | --- |
@@ -26,7 +33,7 @@ können deshalb nicht gleichzeitig laufen.
 ### Weg A: Lokal mit Make
 
 ```bash
-python -m venv .venv            # einmalig: eigene Python-Umgebung anlegen
+python3.12 -m venv .venv        # einmalig: eigene Python-Umgebung anlegen (Python 3.12 nötig)
 source .venv/bin/activate       # aktivieren (in jedem neuen Terminal nötig)
 make install                    # Abhängigkeiten installieren (inkl. pytest und ruff)
 make run                        # API starten, mit automatischem Neustart bei Code-Änderungen
