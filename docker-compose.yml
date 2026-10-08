@@ -1,0 +1,18 @@
+# Starten: docker compose up --build   ->   http://localhost:8000/docs
+#
+# Docker-Compose brauchen wir aktuell eigentlich kaum, da wir nur einen Service haben. Später, mit echter Datenbank, wird es nützlich sein.
+# Compose legt automatisch ein eigenes Netzwerk an. Darin finden sich die Services
+# über ihren Namen: Mit einer echten Datenbank würde die API sie unter db:5432 erreichen.
+
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"   # Port 8000 auf deinem Rechner -> Port 8000 im Container
+    restart: unless-stopped
+
+  # Später, mit echter Datenbank statt Dummydaten:
+  # db:
+  #   image: postgres:16
+  #   environment:
+  #     POSTGRES_PASSWORD: nur-lokal

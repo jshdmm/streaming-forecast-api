@@ -1,0 +1,43 @@
+name: CI
+
+# Läuft bei jedem Pull Request und bei jedem Push auf main
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+env:
+  IMAGE: ghcr.io/${{ github.repository_owner }}/forecast-api:${{ github.sha }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements-dev.txt
+      - run: ruff check .
+      - run: pytest
+
+  docker:
+    needs: test  # nur wenn die Tests grün sind
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read   # Code auschecken
+      packages: write  # Image in die GitHub Container Registry hochladen
+    steps:
+      - uses: actions/checkout@v6
+      - name: Image bauen
+        run: docker build -t "$IMAGE" .
+      - name: Container starten und prüfen
+        run: |
+          docker run -d -p 8000:8000 "$IMAGE"
+          sleep 5
+          curl --fail http://localhost:8000/health
+      - name: Image hochladen (nur auf main)
+        if: github.ref == 'refs/heads/main'
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+          docker push "$IMAGE"
