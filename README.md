@@ -1,7 +1,7 @@
 # Streaming Forecast API
 
 Prognose der Abrufzahlen von ca. 1.000 Filmen für die nächsten 24 Stunden in 15-Minuten-Intervallen,
-bereitgestellt per REST-API. Lösung zur INWT DevOps/MLOps-Challenge.
+bereitgestellt per REST-API.
 
 Gefordert war eine einfache API mit Dummydaten plus Skizzen für Data Engineering, Deployment und Betrieb.
 Lauffähig ist die API, die übrigen Teile sind als Konzept und Diagramme ausgearbeitet.
